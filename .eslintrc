@@ -7,9 +7,7 @@
   "extends": [
     "airbnb",
     "plugin:prettier/recommended",
-    "plugin:react/recommended",
-    "plugin:testcafe/recommended",
-    "plugin:jest/recommended"
+    "plugin:react/recommended"
   ],
   "parser": "babel-eslint",
   "rules": {
