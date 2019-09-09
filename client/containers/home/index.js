@@ -1,8 +1,8 @@
 import React from 'react';
 
 // Import custom components
-import Dashboard from '../../components/dashboard/Dashboard';
+import Desempenho from '../../components/desempenho';
 
-const Home = () => <Dashboard />;
+const Home = () => <Desempenho />;
 
 export default Home;

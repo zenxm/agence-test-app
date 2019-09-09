@@ -22,7 +22,7 @@ const drawerWidth = 250;
 const styles = (theme) => ({
   appBar: {
     position: 'absolute',
-    backgroundColor: 'white',
+    // backgroundColor: 'white',
     zIndex: theme.zIndex.navDrawer + 1,
     transition: theme.transitions.create(['width', 'margin'], {
       easing: theme.transitions.easing.sharp,
@@ -103,7 +103,7 @@ const Header = (props) => {
             ))}
         </Menu>
         <Typography type="title" color="inherit" className={classes.flex} />
-        <img src="img/logo.gif" alt="Agence Logo" />
+        {/* <img src="img/logo.gif" alt="Agence Logo" /> */}
       </Toolbar>
     </AppBar>
   );

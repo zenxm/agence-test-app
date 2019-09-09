@@ -1,24 +1,17 @@
 import bookshelf from '../config/bookshelf';
+import Permissions from './permission.model';
 
 const TABLE_NAME = 'cao_usuario';
 
 /**
  * User model.
  */
-class User extends bookshelf.Model {
-  /**
-   * Get table name.
-   */
-  get tableName() {
-    return TABLE_NAME;
-  }
 
-  /**
-   * Table has timestamps.
-   */
-  get hasTimestamps() {
-    return true;
-  }
-}
+const User = bookshelf.Model.extend({
+  tableName: TABLE_NAME,
+  permissao() {
+    return this.hasOne(Permissions, 'co_usuario', 'co_usuario');
+  },
+});
 
 export default User;

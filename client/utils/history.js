@@ -1,4 +1,4 @@
-import {createBrowserHistory as createHistory} from 'history';
+import { createBrowserHistory as createHistory } from 'history';
 
 // a singleton history object
 const history = createHistory();
