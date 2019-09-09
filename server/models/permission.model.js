@@ -1,11 +1,11 @@
 import bookshelf from '../config/bookshelf';
 
-const TABLE_NAME = 'cao_usuario';
+const TABLE_NAME = 'permissao_sistema';
 
 /**
  * User model.
  */
-class User extends bookshelf.Model {
+class Permissions extends bookshelf.Model {
   /**
    * Get table name.
    */
@@ -21,4 +21,4 @@ class User extends bookshelf.Model {
   }
 }
 
-export default User;
+export default Permissions;
