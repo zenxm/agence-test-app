@@ -14,6 +14,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import NavConstant from '../../../constants/Navigations';
+import IsMobile from '../../../utils/isMobile';
 
 import * as authService from '../../../services/authService';
 
@@ -38,10 +39,10 @@ const styles = (theme) => ({
     }),
   },
   menuButton: {
-    marginLeft: 45,
+    // marginLeft: 45,
   },
   menuButtonShift: {
-    marginLeft: -15,
+    // marginLeft: -15,
   },
   flex: {
     flex: 1,
@@ -50,6 +51,22 @@ const styles = (theme) => ({
 
 const Header = (props) => {
   const [selected, setSelected] = React.useState(null);
+  const [isMobile, setIsMobile] = React.useState(IsMobile());
+  const runOnce = true;
+
+  const onResize = () => {
+    setIsMobile(IsMobile());
+  };
+
+  React.useEffect(
+    () => {
+      window.addEventListener('resize', onResize);
+      return () => {
+        window.removeEventListener('resize', onResize);
+      };
+    },
+    [runOnce],
+  );
 
   const handleClick = (event, nav) => {
     setSelected({ anchorEl: event.currentTarget, nav });
@@ -63,47 +80,52 @@ const Header = (props) => {
   return (
     <AppBar className={classNames(classes.appBar, navDrawerOpen && classes.appBarShift)}>
       <Toolbar>
-        <IconButton
-          aria-label="Menu"
-          onClick={handleToggleDrawer}
-          className={classNames(
-            !navDrawerOpen && classes.menuButton,
-            navDrawerOpen && classes.menuButtonShift,
-          )}
-        >
-          <MenuIcon />
-        </IconButton>
-        {NavConstant.map((nav) => (
-          <Button
-            key={nav.title}
-            aria-controls={nav.title}
-            aria-haspopup="true"
-            onClick={(e) => handleClick(e, nav)}
+        {isMobile ? (
+          <IconButton
+            aria-label="Menu"
+            onClick={handleToggleDrawer}
+            className={classNames(
+              !navDrawerOpen && classes.menuButton,
+              navDrawerOpen && classes.menuButtonShift,
+            )}
           >
-            <span style={{ marginRight: '5px' }}>
-              <MaterialIcon type={nav.icon} />
-            </span>
-            {nav.title}
-          </Button>
-        ))}
-        <Menu
-          id={selected && selected.nav.title}
-          anchorEl={selected && selected.anchorEl}
-          keepMounted
-          open={Boolean(selected)}
-          onClose={handleClose}
-        >
-          {selected &&
-            selected.nav.items &&
-            selected.nav.items.length &&
-            selected.nav.items.map((item) => (
-              <MenuItem key={item.title} onClick={handleClose}>
-                {item.title}
-              </MenuItem>
+            <MenuIcon />
+          </IconButton>
+        ) : (
+          <div>
+            {NavConstant.map((nav) => (
+              <Button
+                key={nav.title}
+                aria-controls={nav.title}
+                aria-haspopup="true"
+                onClick={(e) => handleClick(e, nav)}
+              >
+                <span style={{ marginRight: '5px' }}>
+                  <MaterialIcon type={nav.icon} />
+                </span>
+                {nav.title}
+              </Button>
             ))}
-        </Menu>
-        <Typography type="title" color="inherit" className={classes.flex} />
-        {/* <img src="img/logo.gif" alt="Agence Logo" /> */}
+            <Menu
+              id={selected && selected.nav.title}
+              anchorEl={selected && selected.anchorEl}
+              keepMounted
+              open={Boolean(selected)}
+              onClose={handleClose}
+            >
+              {selected &&
+                selected.nav.items &&
+                selected.nav.items.length &&
+                selected.nav.items.map((item) => (
+                  <MenuItem key={item.title} onClick={handleClose}>
+                    {item.title}
+                  </MenuItem>
+                ))}
+            </Menu>
+            <Typography type="title" color="inherit" className={classes.flex} />
+            {/* <img src="img/logo.gif" alt="Agence Logo" /> */}
+          </div>
+        )}
       </Toolbar>
     </AppBar>
   );

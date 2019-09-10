@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 // Import custom components
 import Header from '../header/Header';
 import MiniDrawer from '../drawer/MiniDrawer';
-import Footer from '../footer/Footer';
 
 const styles = (theme) => ({
   root: {
@@ -34,7 +33,7 @@ const styles = (theme) => ({
 });
 
 const MainLayout = (props) => {
-  const [open, setOpen] = useState(true);
+  const [open, setOpen] = useState(false);
   const handleToggle = () => setOpen((prev) => !prev);
   const { classes } = props;
 

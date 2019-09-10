@@ -27,7 +27,7 @@ const TableDesempenho = (props) => {
   const { data } = props;
   return (
     <div>
-      {data &&
+      {(data &&
         Object.keys(data).length &&
         Object.keys(data).map((key) => (
           <Paper key={key} className={classes.root}>
@@ -104,7 +104,8 @@ const TableDesempenho = (props) => {
               </TableBody>
             </Table>
           </Paper>
-        ))}
+        ))) ||
+        null}
     </div>
   );
 };
