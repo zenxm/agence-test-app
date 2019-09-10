@@ -8,7 +8,7 @@ export default {
     password: process.env.DB_PASSWORD,
     database: process.env.DB_NAME,
     charset: 'utf8mb4',
-    socketPath: process.env.SOCKET_PATH,
+    // socketPath: process.env.SOCKET_PATH,
   },
   debug: true,
 };
