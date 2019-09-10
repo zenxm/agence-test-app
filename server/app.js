@@ -11,18 +11,18 @@ import webpackDevMiddleware from 'webpack-dev-middleware';
 import webpackHotMiddleware from 'webpack-hot-middleware';
 import webpackConfig from '../webpack/webpack.config.dev';
 
-// if (process.env.NODE_ENV === 'development') {
-const compiler = webpack(webpackConfig);
-app.use(
-  webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }),
-);
-app.use(webpackHotMiddleware(compiler));
-// }
-
-// Swagger API documentation
-app.get('/swagger.json', (req, res) => {
-  res.json(swagger);
-});
+if (process.env.NODE_ENV === 'development') {
+  const compiler = webpack(webpackConfig);
+  app.use(
+    webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }),
+  );
+  app.use(webpackHotMiddleware(compiler));
+}
+//
+// // Swagger API documentation
+// app.get('/swagger.json', (req, res) => {
+//   res.json(swagger);
+// });
 
 // Router
 app.use('/api', routes);
