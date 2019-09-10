@@ -6,7 +6,7 @@
     "start": "babel-node server/app.js",
     "clean": "rimraf node_modules && rimraf dist && npm install",
     "webpack:prod": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.prod.js",
-    "build": "rimraf dist && npm run webpack:prod && npm run start",
+    "build": "rimraf dist && npm run webpack:prod",
     "lint": "eslint ."
   },
   "repository": {
