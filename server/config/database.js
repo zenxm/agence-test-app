@@ -1,12 +1,12 @@
 require('dotenv').config();
 
 export default {
-  client: process.env.DB_CLIENT,
+  client: process.env.DB_CLIENT || 'mysql',
   connection: {
-    host: process.env.DB_HOST || '127.0.0.1',
-    user: process.env.DB_USER,
-    password: process.env.DB_PASSWORD,
-    database: process.env.DB_NAME,
+    host: process.env.DB_HOST || 'sql3.freemysqlhosting.net',
+    user: process.env.DB_USER || 'sql9304683',
+    password: process.env.DB_PASSWORD || 'VHifcpUgUT',
+    database: process.env.DB_NAME || 'sql3206184',
     charset: 'utf8mb4',
     // socketPath: process.env.SOCKET_PATH,
   },
