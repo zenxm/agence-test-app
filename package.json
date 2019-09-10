@@ -7,7 +7,7 @@
     "clean": "rimraf node_modules && rimraf dist && npm install",
     "webpack:dev": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.config.dev.js",
     "webpack:prod": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.prod.js",
-    "build": "npm install && npm run start",
+    "build": "rimraf dist && npm run webpack:dev && npm run start",
     "build:prod": "rimraf dist && npm run webpack:prod && npm run start",
     "lint": "eslint ."
   },
@@ -100,8 +100,8 @@
     "webpack-hot-middleware": "^2.25.0"
   },
   "engines": {
-    "node": ">= 6.9.0",
-    "npm": ">= 3.10.8"
+    "node": ">= 10.16.0",
+    "npm": ">= 6.9.0"
   },
   "eslintConfig": {
     "env": {
