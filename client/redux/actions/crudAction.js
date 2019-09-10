@@ -26,6 +26,15 @@ export const fetchAll = (entity) => (dispatch) =>
     .catch((error) => {
       dispatch(commonAction.failure(error));
     });
+export const fetchWithQuery = (entity, queryString) => (dispatch) =>
+  httpService
+    .fetchEntityQuery(entity, queryString)
+    .then((response) => {
+      dispatch(commonAction.fetch(entity, response.data));
+    })
+    .catch((error) => {
+      dispatch(commonAction.failure(error));
+    });
 
 export const fetchById = (entity, id) => (dispatch) =>
   httpService

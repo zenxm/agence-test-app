@@ -1,8 +1,10 @@
 // Import custom utils
-import { fetch, store, update, destroy } from '../utils/httpUtil';
+import { fetch, fetchQuery, store, update, destroy } from '../utils/httpUtil';
 import { getPathParam } from '../utils/serializeUtil';
 
 export const fetchEntity = (entityName) => fetch(entityName.toLowerCase());
+
+export const fetchEntityQuery = (entityName, query) => fetchQuery(entityName.toLowerCase(), query);
 
 export const fetchEntityById = (entityName, dataId) =>
   fetch(getPathParam(entityName.toLowerCase(), dataId));
