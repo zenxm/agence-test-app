@@ -13,7 +13,7 @@ const app = express();
 require('dotenv').config();
 
 app.set('port', process.env.APP_PORT || 3000);
-app.set('host', process.env.APP_HOST || '127.0.0.1');
+app.set('host', process.env.APP_HOST || 'agence-test-app.herokuapp.com');
 
 app.use(express.static(constant.distDir));
 
