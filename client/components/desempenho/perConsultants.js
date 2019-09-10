@@ -6,10 +6,12 @@ import moment from 'moment';
 import { Container, Select, Button, InputLabel } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MaterialIcon from 'react-material-iconic-font';
-import { CONSULTANTS, RELATORIO } from '../../redux/constants/entity';
+import { CONSULTANTS, RELATORIO, GRAPH, PIZZA } from '../../redux/constants/entity';
 import { years, months } from '../../constants/ConsultantsFilter';
 import * as crudAction from '../../redux/actions/crudAction';
 import TableDesempenho from './assets/table';
+import GraphDesempenho from './assets/graph';
+import PizzaGraphDesempenho from './assets/pizzaGraph';
 
 const styles = () => ({
   menuButton: {
@@ -132,27 +134,32 @@ const PerConsultants = (props) => {
     setDateFilter((prev) => ({ ...prev, [type]: value }));
   };
 
-  const handleRelatorio = () => {
+  const getQuery = () => {
     const startDate = moment(`${dateFilter.yearFrom}-${dateFilter.monthFrom}-01`, 'YYYY-MM-DD')
       .startOf('month')
       .format();
     const endDate = moment(`${dateFilter.yearTo}-${dateFilter.monthTo}-01`, 'YYYY-MM-DD')
       .endOf('month')
       .format();
-    const query = {
+    return {
       consultants: clients.selected.map((c) => c.user),
       startDate,
       endDate,
     };
-    props.actions.fetchWithQuery(RELATORIO, query);
+  };
+
+  const handleRelatorio = () => {
+    props.actions.fetchWithQuery(RELATORIO, getQuery());
     setVisible('relatorio');
   };
 
   const handleGraph = () => {
+    props.actions.fetchWithQuery(GRAPH, getQuery());
     setVisible('graph');
   };
 
   const handlePizza = () => {
+    props.actions.fetchWithQuery(PIZZA, getQuery());
     setVisible('pizza');
   };
 
@@ -271,6 +278,18 @@ const PerConsultants = (props) => {
       </Container>
       {visible === 'relatorio' ? (
         <TableDesempenho data={props.relatorio && props.relatorio.data} />
+      ) : null}
+      {visible === 'graph' ? (
+        <GraphDesempenho
+          data={props.graph && props.graph.data}
+          consultants={clients.selected.map((c) => c.name)}
+        />
+      ) : null}
+      {visible === 'pizza' ? (
+        <PizzaGraphDesempenho
+          data={props.pizza && props.pizza.data}
+          consultants={clients.selected.map((c) => c.name)}
+        />
       ) : null}
     </div>
   );

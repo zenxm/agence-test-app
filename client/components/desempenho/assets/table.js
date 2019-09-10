@@ -48,7 +48,7 @@ const TableDesempenho = (props) => {
                   data[key].data &&
                   data[key].data.length &&
                   data[key].data.map((row) => (
-                    <TableRow key={row.name}>
+                    <TableRow key={row.user}>
                       <TableCell component="th" scope="row">
                         {`${months.find((m) => m.value === row.month).label} de ${row.year}`}
                       </TableCell>
