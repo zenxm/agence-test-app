@@ -12,6 +12,7 @@ import * as crudAction from '../../redux/actions/crudAction';
 import TableDesempenho from './assets/table';
 import GraphDesempenho from './assets/graph';
 import PizzaGraphDesempenho from './assets/pizzaGraph';
+import IsMobile from '../../utils/isMobile';
 
 const styles = () => ({
   menuButton: {
@@ -29,6 +30,12 @@ const styles = () => ({
     gridTemplateColumns: '20% 60% 20%',
     padding: 'unset',
   },
+  mainContainerMobile: {
+    border: 'solid 1px gray',
+    display: 'grid',
+    gridTemplateColumns: '1fr',
+    padding: 'unset',
+  },
   containerTitles: {
     backgroundColor: '#c1cdd9',
     border: 'solid 1px gray',
@@ -41,11 +48,21 @@ const styles = () => ({
     display: 'grid',
     gridTemplateColumns: '1fr auto 1fr',
     margin: '20px auto',
+    padding: '10px',
   },
   actions: {
     gridRowStart: 1,
     gridRowEnd: 3,
     gridColumnStart: 3,
+    display: 'grid',
+    gridRowGap: '10px',
+    padding: '20px 40px',
+    borderLeft: 'solid 1px black',
+  },
+  actionsMobile: {
+    gridRowStart: 3,
+    gridRowEnd: 4,
+    gridColumnStart: 1,
     display: 'grid',
     gridRowGap: '10px',
     padding: '20px 40px',
@@ -61,6 +78,8 @@ const styles = () => ({
   filterContainer: {
     display: 'flex',
     alignItems: 'center',
+    borderBottom: 'solid 1px black',
+    padding: '10px',
   },
 });
 
@@ -79,10 +98,19 @@ const PerConsultants = (props) => {
     monthTo: months[1],
     yearTo: years[0],
   });
+  const [isMobile, setIsMobile] = React.useState(IsMobile());
+
+  const onResize = () => {
+    setIsMobile(IsMobile());
+  };
 
   React.useEffect(
     () => {
       props.actions.fetchAll(CONSULTANTS);
+      window.addEventListener('resize', onResize);
+      return () => {
+        window.removeEventListener('resize', onResize);
+      };
     },
     [runOnce],
   );
@@ -166,11 +194,14 @@ const PerConsultants = (props) => {
   const { classes } = props;
   return (
     <div>
-      <Container className={classes.mainContainer}>
-        <Container style={{ borderBottom: 'solid 1px black' }} className={classes.containerTitles}>
+      <Container className={isMobile ? classes.mainContainerMobile : classes.mainContainer}>
+        <Container
+          style={{ borderBottom: 'solid 1px black', display: isMobile ? 'none' : 'block' }}
+          className={classes.containerTitles}
+        >
           Período
         </Container>
-        <Container style={{ borderBottom: 'solid 1px black' }} className={classes.filterContainer}>
+        <Container className={classes.filterContainer}>
           <Select
             native
             value={dateFilter.monthFrom}
@@ -220,7 +251,12 @@ const PerConsultants = (props) => {
             ))}
           </Select>
         </Container>
-        <Container className={classes.containerTitles}>Consultors</Container>
+        <Container
+          className={classes.containerTitles}
+          style={{ display: isMobile ? 'none' : 'block' }}
+        >
+          Consultors
+        </Container>
         <div className={classes.formControl}>
           <Select
             multiple
@@ -255,24 +291,24 @@ const PerConsultants = (props) => {
             ))}
           </Select>
         </div>
-        <Container style={{ borderLeft: 'solid 1px black' }} className={classes.actions}>
+        <Container className={isMobile ? classes.actionsMobile : classes.actions}>
           <Button variant="outlined" onClick={handleRelatorio}>
             <span style={{ marginRight: '5px' }}>
               <MaterialIcon type="file" />
             </span>
-            Relatório
+            <div>Relatório</div>
           </Button>
           <Button variant="outlined" onClick={handleGraph}>
             <span style={{ marginRight: '5px' }}>
               <MaterialIcon type="view-dashboard" rotate={180} />
             </span>
-            Gráfico
+            <div>Gráfico</div>
           </Button>
           <Button variant="outlined" onClick={handlePizza}>
             <span style={{ marginRight: '5px' }}>
               <MaterialIcon type="pizza" rotate={180} />
             </span>
-            Pizza
+            <div>Pizza</div>
           </Button>
         </Container>
       </Container>

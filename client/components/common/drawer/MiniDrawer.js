@@ -13,8 +13,9 @@ const drawerWidth = 250;
 
 const styles = (theme) => ({
   drawerPaper: {
-    position: 'absolute',
-    height: 'auto',
+    position: 'fixed',
+    height: '100%',
+    padding: '30px 0',
     width: drawerWidth,
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -49,7 +50,41 @@ const styles = (theme) => ({
     width: 60,
     height: 60,
   },
+  image: {
+    margin: '0 auto 30px',
+  },
 });
+
+const StyledMenu = withStyles({
+  paper: {
+    border: '1px solid #d3d4d5',
+  },
+})((props) => (
+  <Menu
+    elevation={0}
+    getContentAnchorEl={null}
+    anchorOrigin={{
+      vertical: 'bottom',
+      horizontal: 'center',
+    }}
+    transformOrigin={{
+      vertical: 'top',
+      horizontal: 'center',
+    }}
+    {...props}
+  />
+));
+
+const StyledMenuItem = withStyles((theme) => ({
+  root: {
+    '&:focus': {
+      backgroundColor: theme.palette.primary.main,
+      '& .MuiListItemIcon-root, & .MuiListItemText-primary': {
+        color: theme.palette.common.white,
+      },
+    },
+  },
+}))(MenuItem);
 
 const MiniDrawer = (props) => {
   const [selected, setSelected] = React.useState(null);
@@ -73,6 +108,7 @@ const MiniDrawer = (props) => {
       }}
       open={navDrawerOpen}
     >
+      <img src="img/logo.gif" alt="Agence Logo" className={classes.image} />
       {NavConstant.map((nav) => (
         <Button
           key={nav.title}
@@ -86,7 +122,7 @@ const MiniDrawer = (props) => {
           {nav.title}
         </Button>
       ))}
-      <Menu
+      <StyledMenu
         id={selected && selected.nav.title}
         anchorEl={selected && selected.anchorEl}
         keepMounted
@@ -97,11 +133,11 @@ const MiniDrawer = (props) => {
           selected.nav.items &&
           selected.nav.items.length &&
           selected.nav.items.map((item) => (
-            <MenuItem key={item.title} onClick={handleClose}>
+            <StyledMenuItem key={item.title} onClick={handleClose}>
               {item.title}
-            </MenuItem>
+            </StyledMenuItem>
           ))}
-      </Menu>
+      </StyledMenu>
     </Drawer>
   );
 };
