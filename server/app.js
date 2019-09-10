@@ -39,7 +39,7 @@ app.use(joiErrorHandler);
 app.use(errorHandler.notFoundErrorHandler);
 app.use(errorHandler.errorHandler);
 
-app.listen(app.get('port'), () => {
+app.listen(process.env.PORT || 5000, () => {
   console.log(`Listening on ${app.get('port')}`);
 });
 
