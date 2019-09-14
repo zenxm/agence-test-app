@@ -45,6 +45,13 @@ const useStyles = makeStyles((theme) => ({
   title: {
     margin: '25px',
   },
+  pieChart: {
+    display: 'grid',
+    gridTemplateColumns: '1fr auto',
+  },
+  legend: {
+    position: 'relative',
+  },
 }));
 
 const PizzaGraph = (props) => {
@@ -52,7 +59,8 @@ const PizzaGraph = (props) => {
   return (
     <Paper className={classes.root}>
       <div className={classes.title}>Pizza Graph</div>
-      <PieChart width={400} height={400}>
+      <PieChart width={400} height={400} className={classes.pieChart}>
+        <Legend className={classes.legend} wrapperStyle={{ position: 'relative' }} />
         <Pie
           data={props.data}
           cx={200}
